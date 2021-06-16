@@ -8,11 +8,15 @@ api_key = None
 
 # Getting the movie base url
 base_url = None
+genres_url = None
+genre_movies_url = None
 
 def configure_request(app):
-    global api_key,base_url
+    global api_key,base_url,genres_url,genre_movies_url
     api_key = app.config['MOVIE_API_KEY']
     base_url = app.config['MOVIE_API_BASE_URL']
+    genres_url = app.config['GENRES_URL']
+    genre_movies_url = app.config['GENRE_MOVIES_URL']
 
 def get_movies(category):
     '''
@@ -98,7 +102,7 @@ def search_movie(movie_name):
 
 
 def get_genres():
-    get_genres_url = base_url.format(api_key)
+    get_genres_url = genres_url.format(api_key)
     with urllib.request.urlopen(get_genres_url) as url:
         get_genres_data = url.read()
         get_genres_response = json.loads(get_genres_data)
@@ -121,10 +125,10 @@ def process_genres_results(genres_results_list):
 
     return genres_results
 
-# Getting the movie genres
+
 
 def get_genre_movies(id):
-    get_genre_movies_url = base_url.format(api_key,id)
+    get_genre_movies_url = genre_movies_url.format(api_key,id)
     with urllib.request.urlopen(get_genre_movies_url) as url:
         genre_movies_data = url.read()
         genre_movies_response = json.loads(genre_movies_data)

@@ -136,4 +136,4 @@ def genres():
 @main.route('/genres/<int:id>/movies')
 def genre_movies(id):
     movies = get_genre_movies(id)
-    return render_template('genre_movies.html',movies = movies)
+    return render_template('genre_movie.html',movies = movies)
