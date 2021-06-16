@@ -1,6 +1,6 @@
 
 import urllib.request,json
-from .models import Movie
+from .models import Movie,Genres
 
 
    # Getting api key
@@ -95,3 +95,28 @@ def search_movie(movie_name):
 
 
     return search_movie_results   
+
+
+def get_genres():
+    get_genres_url = base_url.format(api_key)
+    with urllib.request.urlopen(get_genres_url) as url:
+        get_genres_data = url.read()
+        get_genres_response = json.loads(get_genres_data)
+        
+        genres_results = None
+        
+        if get_genres_response['genres']:
+            genres_results_list = get_genres_response['genres']
+            genres_results = process_genres_results(genres_results_list)
+        
+    return genres_results
+
+def process_genres_results(genres_results_list):
+    genres_results = []
+    for genre_item in genres_results_list:
+        id = genre_item.get('id')
+        name = genre_item.get('name')
+        genre_object = Genres(id,name)
+        genres_results.append(genre_object)
+
+    return genres_results
