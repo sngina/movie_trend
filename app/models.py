@@ -95,3 +95,7 @@ class Role(db.Model):
     def __repr__(self):
         return f'User {self.name}'
 
+class Genres:
+    def __init__(self,id,name):
+        self.id = id
+        self.name = name
