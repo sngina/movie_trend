@@ -1,7 +1,7 @@
 from ..models import Review,User
 from flask import render_template,request,redirect,url_for,abort
 from . import main
-from ..request import get_movies,get_movie,search_movie
+from ..request import get_movies,get_movie,search_movie,get_genres,get_genre_movies
 
 from flask_login import login_required,current_user
 
@@ -125,3 +125,15 @@ def single_review(id):
         abort(404)
     format_review = markdown2.markdown(review.movie_review,extras=["code-friendly", "fenced-code-blocks"])
     return render_template('review.html',review = review,format_review=format_review)
+
+
+#routes for the genres
+@main.route('/genres')
+def genres():
+    genres = get_genres()
+    return render_template('genres.html',genres = genres)
+
+@main.route('/genres/<int:id>/movies')
+def genre_movies(id):
+    movies = get_genre_movies(id)
+    return render_template('genre_movies.html',movies = movies)

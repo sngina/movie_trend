@@ -120,3 +120,19 @@ def process_genres_results(genres_results_list):
         genres_results.append(genre_object)
 
     return genres_results
+
+# Getting the movie genres
+
+def get_genre_movies(id):
+    get_genre_movies_url = base_url.format(api_key,id)
+    with urllib.request.urlopen(get_genre_movies_url) as url:
+        genre_movies_data = url.read()
+        genre_movies_response = json.loads(genre_movies_data)
+
+        genre_movies_results = None
+
+        if genre_movies_response['results']:
+            genre_movies_list = genre_movies_response['results']
+            genre_movies_results = process_results(genre_movies_list)
+            
+    return genre_movies_results
