@@ -140,3 +140,25 @@ def get_genre_movies(id):
             genre_movies_results = process_results(genre_movies_list)
             
     return genre_movies_results
+
+def watch_trailer(id):
+    watch_movie_trailer = 'https://api.themoviedb.org/3/movie/{}/videos?api_key={}&language=en-US'.format(
+        id, api_key)
+    with urllib.request.urlopen(watch_movie_trailer) as url:
+        search_trailer_data = url.read()
+        search_trailer_response = json.loads(search_trailer_data)
+        if search_trailer_response['results']:
+            search_trailer_list = search_trailer_response['results']
+            search_trailer_results = process_trailer(search_trailer_list)
+  
+    return search_trailer_results
+
+def process_trailer(trailer_list):
+    trailer_results = []
+    for trailer_item in trailer_list:
+        key=trailer_item.get('key')
+        trailer_object = Trailer(key)
+        trailer_results.append(trailer_object)
+        teazer = trailer_results[0].key
+    # print(teazer)
+    return teazer
