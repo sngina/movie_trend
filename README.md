@@ -2,7 +2,7 @@
 
 ## Author
 
-[Stella Ngina](https://github.com/sngina/movie_trend.git)
+[Stella Ngina,Juma Allan and Kirui C.Lona](https://github.com/sngina/movie_trend.git)
 
 # Description
 This is an application that sends a daily movie recommendation to a person via email.
