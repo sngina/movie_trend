@@ -18,7 +18,7 @@ def get_movies(category):
 
     get_movies_url = base_url.format(
         category, api_key)  # fill the data respectivily
-    # get_movies_url = 'https://api.themoviedb.org/3/movie/{}?api_key={}'.format(category, '6b2931ce73d6552995776353db108a22')
+    get_movies_url = 'https://api.themoviedb.org/3/movie/{}?api_key={}'.format(category, '6b2931ce73d6552995776353db108a22')
     with urllib.request.urlopen(get_movies_url) as url:
 
         get_movie_data = url.read()
