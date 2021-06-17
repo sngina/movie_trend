@@ -1,6 +1,6 @@
 # Movie-trend
 
-## Author
+## Authors
 
 [Stella Ngina,Juma Allan and Kirui C.Lona](https://github.com/sngina/movie_trend.git)
 
