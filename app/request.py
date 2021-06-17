@@ -1,6 +1,6 @@
 
 import urllib.request,json
-from .models import Movie,Genres
+from .models import Movie,Genres,Trailer
 
 
    # Getting api key

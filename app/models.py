@@ -25,7 +25,9 @@ class Movie:
 
 class Review(db.Model):
 
-    
+    '''
+    Review class to define review Objects
+    '''
     __tablename__ = 'reviews'
 
     id = db.Column(db.Integer,primary_key = True)
@@ -56,6 +58,10 @@ class Review(db.Model):
 
 
 class User(UserMixin,db.Model):
+
+    '''
+    User class to define user Objects
+    '''
     __tablename__ = 'users'
 
     id = db.Column(db.Integer,primary_key = True)
@@ -85,6 +91,10 @@ class User(UserMixin,db.Model):
 
 
 class Role(db.Model):
+
+    '''
+    Role class to define roles Objects
+    '''
     __tablename__ = 'roles'
 
     id = db.Column(db.Integer,primary_key = True)
@@ -96,6 +106,18 @@ class Role(db.Model):
         return f'User {self.name}'
 
 class Genres:
+    '''
+    Genre class to genres Objects
+    '''
     def __init__(self,id,name):
         self.id = id
         self.name = name
+
+
+class Trailer:
+
+    '''
+    Trailer class to define trailer Objects
+    '''
+    def __init__(self,key):
+        self.key= key
