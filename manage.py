@@ -1,40 +1,28 @@
-import os
+#! /usr/bin/python3
+from app import create_app, db # from app __init__
+# initialize our extension & serve class help us launch out server
+from flask_script import Manager, Server
+from app.models import User, Role , Review
+from flask_migrate import Migrate, MigrateCommand
 
-class Config:
+# create app instance
+app = create_app('development')
 
-    MOVIE_API_BASE_URL ='https://api.themoviedb.org/3/movie/{}?api_key={}'
-    MOVIE_API_KEY = os.environ.get('MOVIE_API_KEY')
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    # db+driver://username:password@host/database
-    UPLOADED_PHOTOS_DEST ='app/static/photos'
-    #  email configurations
-    MAIL_SERVER = 'smtp.googlemail.com'
-    MAIL_PORT = 587
-    MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
-    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
-    # simple mde  configurations
-    SIMPLEMDE_JS_IIFE = True
-    SIMPLEMDE_USE_CDN = True
+manager = Manager(app)
+manager.add_command('server', Server)
 
+@manager.command
+def test():
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner(verbosity=2).run(tests)
+# we have used the manage decorator to create a shell context..
+@manager.shell
+def make_shell_context():
+  return dict(app = app, db = db, User = User, Role = Role)
 
-class ProdConfig(Config):
-      SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
-    #   if SQLALCHEMY_DATABASE_URI.startswith('postgres://'):
-    #     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace('postgres://', "postgresql://", 1)
+migrate = Migrate(app, db) # intialze migrate pass in db and app instance
+manager.add_command('db',MigrateCommand) #manager command and pass the migratecommand class
 
-
-
-
-class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:malika@localhost/watchlist_test'
-class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:malika@localhost/watchlist'
-    DEBUG = True
-
-
-config_options = {
-    'development': DevConfig,
-    'production': ProdConfig,
-    'test': TestConfig
-}
+if __name__ == '__main__':
+  manager.run()
