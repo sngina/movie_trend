@@ -6,12 +6,12 @@ from  flask_migrate import Migrate,MigrateCommand
 
 # Creating app instances
 #1
-app = create_app('development')
+# app = create_app('development')
 #2
 #app = create_app('test')
 
 #3
-# app = create_app('production')
+app = create_app('production')
 
 
 
