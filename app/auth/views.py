@@ -5,6 +5,7 @@ from .forms import LoginForm, RegistrationForm
 from .. import db
 from ..email import mail_message
 from .import auth
+
 @auth.route('/login',methods = ['GET' , 'POST'])
 def login():
     login_form = LoginForm()
@@ -16,6 +17,7 @@ def login():
         flash('Invalid username or Password')
     title = "watchlist login"
     return render_template('auth/login.html',login_form = login_form,title=title)
+    
 @auth.route('/register',methods = ["GET","POST"])
 def register():
     form = RegistrationForm()
